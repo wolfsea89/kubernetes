@@ -1,0 +1,27 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  labels:
+    k8s-app: kubernetes-dashboard
+  name: kubernetes-dashboard
+  namespace: kubernetes-dashboard
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+spec:
+  defaultBackend:
+    service:
+      name: kubernetes-dashboard
+      port: 
+        number: 443
+  rules:
+    - host: kubernetes-dashboard.k8s.rachuna.net
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: kubernetes-dashboard
+                port:
+                  number: 443
