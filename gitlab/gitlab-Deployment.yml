@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: gitlab
-        image: gitlab/gitlab-ce:latest
+        image: gitlab/gitlab-ce
         resources:
           limits:
             memory: "1024Mi"
@@ -45,10 +45,10 @@ spec:
       volumes:
       - name: gitlab-etc
         persistentVolumeClaim:
-          claimName: gitlab-etc
+          claimName: gitlab-pvc-etc
       - name: gitlab-data
         persistentVolumeClaim:
-          claimName: gitlab-data
+          claimName: gitlab-pvc-data
       - name: gitlab-logs
         persistentVolumeClaim:
-          claimName: gitlab-logs
+          claimName: gitlab-pvc-logs
