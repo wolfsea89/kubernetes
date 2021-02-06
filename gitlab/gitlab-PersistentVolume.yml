@@ -1,0 +1,50 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: gitlab-etc
+  labels:
+    k8s-app: gitlab
+  namespace: gitlab
+spec:
+  capacity:
+    storage: 1Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/volumes/gitlab/gitlab-etc"
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: gitlab-logs
+  labels:
+    k8s-app: gitlab
+  namespace: gitlab
+spec:
+  capacity:
+    storage: 1Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/volumes/gitlab/gitlab-logs"
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: gitlab-data
+  labels:
+    k8s-app: gitlab
+  namespace: gitlab
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/volumes/gitlab/gitlab-data"

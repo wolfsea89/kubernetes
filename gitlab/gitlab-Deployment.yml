@@ -1,0 +1,55 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitlab
+  labels:
+    k8s-app: gitlab
+  namespace: gitlab
+spec:
+  selector:
+    matchLabels:
+      app: gitlab
+  template:
+    metadata:
+      labels:
+        app: gitlab
+    spec:
+      containers:
+      - name: gitlab
+        image: gitlab/gitlab-ce:latest
+        hostname: gitlab.k8s.rachuna.net
+        resources:
+          limits:
+            memory: "1024Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 443
+          name: webssl
+        - containerPort: 80
+          name: web
+        - containerPort: 22
+          name: ssh
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 10
+          periodSeconds: 3
+        volumeMounts:
+        - mountPath: /etc/gitlab
+          name: gitlab-etc
+        - mountPath: /var/opt/gitlab
+          name: gitlab-data
+        - mountPath: /var/log/gitlab
+          name: gitlab-logs
+      volumes:
+      - name: gitlab-etc
+        PersistentVolume:
+          claimName: gitlab-etc
+      - name: gitlab-data
+        PersistentVolume:
+          claimName: gitlab-data
+      - name: gitlab-logs
+        PersistentVolume:
+          claimName: gitlab-logs
