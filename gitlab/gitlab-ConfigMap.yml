@@ -2,10 +2,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: gitlab
+  name: gitlab-cfg
   labels:
     k8s-app: gitlab
   namespace: gitlab
 data:
-  GITLAB_OMNIBUS_CONFIG: |
-    external_url 'gitlab.k8s.rachuna.net'
+  GITLAB_OMNIBUS_CONFIG: "external_url 'gitlab.k8s.rachuna.net'"
